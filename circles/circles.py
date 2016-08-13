@@ -9,10 +9,10 @@ with open('../../circles/src/dataset3.txt') as f:
    
     I = np.empty((r,c))
     for i in xrange(0, r):
-            pixels = f.readline().strip().split()
-            for j in xrange(0,c):
-                    pixel = map(int,pixels[j].strip().split(","))                    
-                    X.append(pixel)   
+        pixels = f.readline().strip().split()
+        for j in xrange(0,c):
+            pixel = map(int,pixels[j].strip().split(","))                    
+            X.append(pixel)   
     
     labels = KMeans(n_clusters=2, random_state=1).fit_predict(X)
 
@@ -23,22 +23,22 @@ with open('../../circles/src/dataset3.txt') as f:
             label_b=1
             label_f=0
     for i in xrange(0, r):	
-            for j in xrange(0,c):
-                    if(labels[i*c+j]==background_label):
-                            I[i,j] =  label_b
-                    else:
-                            I[i,j] =  label_f
+        for j in xrange(0,c):
+            if(labels[i*c+j]==background_label):
+                I[i,j] =  label_b
+            else:
+                I[i,j] =  label_f
 
 
     if(r==315 and c==416):
-            num_ero = 10
+        num_ero = 10
     else:
-            num_ero=20
+        num_ero=20
 
     s = [[0, 1, 0],[1,1,1],[0,1,0]]
 
     for i in xrange(0,num_ero):            
-            I=ndimage.binary_erosion(I, structure=s).astype(I.dtype)
+        I=ndimage.binary_erosion(I, structure=s).astype(I.dtype)
 
 
     labeled_array, num_features = ndimage.label(I)
